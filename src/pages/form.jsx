@@ -19,13 +19,12 @@ const Form = () => {
     gender: '',
     birthdate: '',
     email: '',
-    phone: '',
     address: '',
     street: '',
     state: '',
     country: selectedCountry.countryName,
-    zip: '',
-    detailedDescription: '',
+    zipcode: '',
+    description: '',
   });
   const [localPhoneNumber, setLocalPhoneNumber] = useState('');
   const handleLocalPhoneNumberChange = (e) => {
@@ -52,9 +51,9 @@ const Form = () => {
   const fullPhoneNumber = `${selectedCountry.countryCode} ${localPhoneNumber}`;
   const submissionData = {
     ...formData,
-    phoneNumber: fullPhoneNumber,
+    phone: fullPhoneNumber,
   };
-
+  console.log('Response:', submissionData);
   try {
     // Send a POST request to the endpoint with form data
     const response = await axios.post('http://192.168.1.46:8000/api/register', submissionData);
@@ -68,13 +67,12 @@ const Form = () => {
       gender: '',
       birthdate: '',
       email: '',
-      phone: '',
       address: '',
       street: '',
       state: '',
       country: selectedCountry.countryName,
-      zip: '',
-      detailedDescription: '',
+      zipcode: '',
+      description: '',
     });
     setLocalPhoneNumber('');
   } catch (error) {
@@ -83,7 +81,7 @@ const Form = () => {
   }
 };
   return (
-    <div className="overflow-y-auto">
+    <div className="overflow-y-hidden">
       <Header />
       <main className="relative grid place-items-center">
         <div className="bg-transparent bg-opacity-80 p-8 w-full max-w-4xl relative z-30">
@@ -106,23 +104,23 @@ const Form = () => {
                   <input
                     type="radio"
                     name="gender"
-                    value="Male"
-                    checked={formData.gender === 'Male'}
+                    value="male"
+                    checked={formData.gender === 'male'}
                     onChange={handleInputChange}
                     required
                   />
-                  <span className="ml-2">Male</span>
+                  <span className="ml-2">male</span>
                 </label>
                 <label className="inline-flex items-center">
                   <input
                     type="radio"
                     name="gender"
-                    value="Female"
-                    checked={formData.gender === 'Female'}
+                    value="female"
+                    checked={formData.gender === 'female'}
                     onChange={handleInputChange}
                     required
                   />
-                  <span className="ml-2">Female</span>
+                  <span className="ml-2">female</span>
                 </label>
               </div>
             </div>
@@ -231,7 +229,7 @@ const Form = () => {
               <input
                 className="border-2 border-secondary rounded-lg py-1 px-2"
                 type="text"
-                name="zip"
+                name="zipcode"
                 value={formData.zip}
                 onChange={handleInputChange}
                 required
@@ -241,8 +239,8 @@ const Form = () => {
               <label className="px-0 py-3 font-semibold">Detailed Description</label>
               <textarea
                 className="border-2 border-secondary rounded-lg py-1 px-2"
-                name="detailedDescription"
-                value={formData.detailedDescription}
+                name="description"
+                value={formData.description}
                 onChange={handleInputChange}
                 required
               />
